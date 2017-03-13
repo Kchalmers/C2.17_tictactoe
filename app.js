@@ -1,6 +1,6 @@
 var game;
 var CreateGame = function() {
-    this.players = [];
+    this.playersArray = [];
     //in playsMadeArr 0 = not played space, 1 = X played and 2 = O played
     this.playsMadeArr = [];
     this.current_player = 'X';
@@ -69,24 +69,33 @@ var CreateGame = function() {
     };//end checkWin
     // Start of Create Players
     this.createPlayers = function () {
-        var player1 = $('.player1');
-        var player2 = $('.player2');
-        players.push(player1, player2);
+        var player1 = new player_template('X', $('.player1'));
+        var player2 = new player_template('O',$('.player2'));
+        this.playerArray.push(player1, player2);
+        this.playerArray[0].current_player();
     };//end of createPlayers
 
     this.switchPlayers = function (player) {
-        if(player == 'X'){
-            player1.addClass('current_player');
-            player2.removeClass('current_player');
-            current_player == 'O';
-        }  else if (player == 'O'){
-            player2.addClass('current_player');
-            player1.removeClass('current_player');
-            current_player == 'X';
+        if(this.current_player == 'X')
+        {
+            this.current_player = 'O';
+        }else {
+            this.current_player = 'X';
         }
     };//End of switchPlayers
 };//end of CreateGame
 
+var player_template = function (marker, player) {
+this.marker = marker;
+this.player = player;
+    var active_player = function () {
+        this.player.addClass('current_player')
+    };
+    var off_player = function () {
+        this.player.removeClass('current_player')
+    };
+
+};
 function initialize() {
     game.addClickHandlers();
 };
