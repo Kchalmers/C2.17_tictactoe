@@ -3,50 +3,121 @@
     width:95vw;
     border:1px solid black;
 }
-.board_location {
-    height: 89%;
-    width: 73%;
+/* choosing area*/
+.choosing_box {
+    height: 87%;
+    width: 19%;
     border: 1px solid black;
     position: absolute;
-    left: 21%;
     top: 4%;
+    left: 3%;
+    background-color: green;
+}
+.chosen_size{
+    height: 20%;
+    width: 50%;
+    position: absolute;
+    background-color: khaki;
+    font-size: 3vh;
+    float: left;
+    text-align: center;
+}
+.chosen_win {
+    height: 20%;
+    width: 50%;
+    position: absolute;
+    background-color: yellow;
+    font-size: 3vh;
+    left: 50%;
+    text-align: center;
+}
+ul{
+    margin:0;
+    padding:0;
+    list-style-type: none;
+}
+li{
+    margin-top:10%;
+}
+.players {
+    height: 80%;
+    width: 100%;
+    border: 1px solid black;
+    position: absolute;
+    top: 20%;
+    font-size:5vh;
+    text-align:center;
+}
+.player1 {
+    height: 35%;
+    width: 100%;
+    border-bottom: 1px solid black;
+    position: absolute;
+}
+.player2{
+    height: 35%;
+    width: 100%;
+    border-bottom: 1px solid black;
+    position: absolute;
+    top: 35%;
+}
+
+.start_game{
+    height: 12%;
+    width: 50%;
+    position: absolute;
+    background-color: red;
+    font-size: 4vh;
+    top: 82%;
+    left: 27%;
+    text-align: center;
+}
+/* game-area*/
+.board_location {
+    height: 92%;
+    width: 66%;
+    border: 1px solid black;
+    position: absolute;
+    left: 26%;
+    top: 2%;
     background-color: blue;
 }
+/*this is for 3match game*/
 .game_board_three{
     height: 75vh;
     width: 75vh;
     background-color: skyblue;
     margin: 0;
     padding: 0;
-    position:absolute;
-    left: 23%;
+    position: absolute;
+    left: 19%;
     top: 8%;
     font-size: 0;
-
 }
-.ttt_cell {
+.game_board_three > .ttt_cell {
     width: 33.3333%;
     height: 33.3333%;
     border: 1px solid black;
     display: inline-block;
     box-sizing: border-box;
 }
-
-.choosing_box {
-    height: 81%;
-    width: 19%;
-    border: 1px solid black;
-    position: absolute;
-    top: 4%;
-    left: 1%;
-    background-color:green;
-}
-/*.chosen_size{*/
+/*this is for 5match game*/
+/*.game_board_five {*/
+    /*height: 80vh;*/
+    /*width: 80vh;*/
+    /*background-color: cadetblue;*/
+    /*margin: 0;*/
+    /*padding: 0;*/
+    /*position: absolute;*/
+    /*left: 17%;*/
+    /*top: 5%;*/
+    /*font-size: 0;*/
+/*}*/
+/*.game_board_five > .ttt_cell {*/
+    /*width: 20%;*/
     /*height: 20%;*/
-    /*width:100%;*/
-    /*background-color: khaki;*/
+    /*border: 1px solid black;*/
+    /*display: inline-block;*/
+    /*box-sizing: border-box;*/
 /*}*/
-/*input{*/
-    /*font-size: 2em;*/
 
-/*}*/
