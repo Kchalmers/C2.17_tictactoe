@@ -1,8 +1,17 @@
+var game;
 var CreateGame = function() {
     this.gameBoardSize = $("input[name='chosen']:checked").val();
     //    below are test cases. if you comment out line above, and uncomment one of the below it
     //run based on three or five.
     // this.gameBoardSize = "five";
+    this.addClickHandlers = function() {
+        $(".start_game").click(this.beginGame.bind(this));
+        // $(".ttt_cell").click(this.SOMEFUNCTION.bind(this));
+    }
+    this.beginGame = function() {
+        this.createBoard();
+        this.createCells();
+    };
     this.createBoard = function() {
         if(this.gameBoardSize === "three") {
             var board = $("<div>", {
@@ -35,10 +44,11 @@ var CreateGame = function() {
     };//end of createCells
 };//end of CreateGame
 
-function startUp() {
-    var game = new CreateGame;
-    game.createBoard();
-    game.createCells();
+function initialize() {
+    game.addClickHandlers();
 };
 
-$(document).ready(startUp);
+$(document).ready(function() {
+    game = new CreateGame;
+    initialize();
+});
