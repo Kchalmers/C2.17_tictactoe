@@ -1,3 +1,4 @@
+var game;
 var CreateGame = function() {
     this.playerArray = [];
     this.current_player = 'X';
@@ -5,6 +6,14 @@ var CreateGame = function() {
     //    below are test cases. if you comment out line above, and uncomment one of the below it
     //run based on three or five.
     // this.gameBoardSize = "five";
+    this.addClickHandlers = function() {
+        $(".start_game").click(this.beginGame.bind(this));
+        // $(".ttt_cell").click(this.SOMEFUNCTION.bind(this));
+    }
+    this.beginGame = function() {
+        this.createBoard();
+        this.createCells();
+    };
     this.createBoard = function() {
         if(this.gameBoardSize === "three") {
             var board = $("<div>", {
@@ -64,11 +73,11 @@ this.player = player;
     };
 
 };
+function initialize() {
+    game.addClickHandlers();
+};
 
-function startUp() {
-    var game = new CreateGame;
-    game.createBoard();
-    game.createCells();
-}
-
-$(document).ready(startUp);
+$(document).ready(function() {
+    game = new CreateGame;
+    initialize();
+});
