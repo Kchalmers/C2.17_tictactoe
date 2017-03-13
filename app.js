@@ -1,18 +1,23 @@
 var game;
 var CreateGame = function() {
-    this.playerArray = [];
+    this.playersArray = [];
+    //in playsMadeArr 0 = not played space, 1 = X played and 2 = O played
+    this.playsMadeArr = [];
     this.current_player = 'X';
-    this.gameBoardSize = $("input[name='chosen']:checked").val();
-    //    below are test cases. if you comment out line above, and uncomment one of the below it
-    //run based on three or five.
+    this.gameBoardSize = null;
+    this.getSize = function() {
+        this.gameBoardSize = $("input[name='chosen']:checked").val();
+    };
     // this.gameBoardSize = "five";
     this.addClickHandlers = function() {
         $(".start_game").click(this.beginGame.bind(this));
         // $(".ttt_cell").click(this.SOMEFUNCTION.bind(this));
-    }
+    };
     this.beginGame = function() {
+        this.getSize();
         this.createBoard();
         this.createCells();
+        this.createPlaysMade();
     };
     this.createBoard = function() {
         if(this.gameBoardSize === "three") {
@@ -44,6 +49,24 @@ var CreateGame = function() {
             }
         }
     };//end of createCells
+    this.createPlaysMade = function() {
+        var size;
+        if (this.gameBoardSize === "three") {
+            size = 3;
+        } else {
+            size = 5;
+        }
+        for(var i=0; i < size; i++){
+            var temp = [];
+            this.playsMadeArr.push(temp);
+            for (var j=0; j< size; j++){
+                this.playsMadeArr[i][j] = 0;
+            }
+        }
+    };
+    this.checkWin = function() {
+
+    };//end checkWin
     // Start of Create Players
     this.createPlayers = function () {
         var player1 = new player_template('X', $('.player1'));
