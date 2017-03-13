@@ -1,8 +1,7 @@
 var CreateGame = function() {
-    this.gameBoardSize = $("input[class="chosen_size"]:checked).val();
+    this.gameBoardSize = $("input[name='chosen']:checked").val();
     //    below are test cases. if you comment out line above, and uncomment one of the below it
     //run based on three or five.
-    // this.gameBoardSize = "three";
     // this.gameBoardSize = "five";
     this.createBoard = function() {
         if(this.gameBoardSize === "three") {
@@ -14,7 +13,7 @@ var CreateGame = function() {
                 class : "game_board_five"
             });
         }
-        $(".boardLocation").append(board);
+        $(".board_location").append(board);
     }; // end of createBoard
     this.createCells = function() {
         var size = null;
