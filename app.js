@@ -17,6 +17,7 @@ var CreateGame = function() {
     // this.gameBoardSize = "five";
     this.addClickHandlers = function() {
         $(".start_game").click(this.beginGame.bind(this));
+        $(".reset_game").click(this.ResetGame.bind(this));
     };
     this.beginGame = function() {
         this.getSize();
@@ -25,7 +26,6 @@ var CreateGame = function() {
         this.createPlaysMade();
         $(".ttt_cell").click(this.switchPlayers.bind(this));
         $(".start_game").on('click',$("input").attr("disabled", true));
-        $(".reset_game").click(this.ResetGame.bind(this));
     };
     this.createBoard = function() {
         if(this.gameBoardSize === "three") {
@@ -80,12 +80,13 @@ var CreateGame = function() {
         this.userWinCondition();
         if (this.winCondition === "three") {
             this.winCondition = 3;
-        } else {
+        } else if(this.winCondition === "five"){
             this.winCondition = 5;
         }
         var size = null;
         if (this.gameBoardSize === "three") {
             size = 3;
+            this.winCondition = 3;
         } else {
             size = 5;
         }
