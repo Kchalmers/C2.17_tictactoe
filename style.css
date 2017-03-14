@@ -102,6 +102,7 @@ li{
     top: 29%;
     left: 16%;
     text-align: center;
+    cursor:pointer;
 }
 /* game-area*/
 .board_location {
@@ -156,4 +157,6 @@ li{
 .ttt_cell {
     font-size: 10vh;
     text-align: center;
+    vertical-align: text-top;
+    cursor:pointer;
 }
