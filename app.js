@@ -181,10 +181,10 @@ var CreateGame = function() {
         || countLeft >= this.winCondition || countRight >= this.winCondition) {
             if (symbolChecking === 1) {
                 alert("X's Won!");
-                $('.board_location').empty().append('<img src="../memory_match/images/victory.png" id = "victory">')
+                $('.board_location').empty().append('<img src="../C2.17_tictactoe/images/cartman-victory.jpg" id = "victory">')
             } else {
                 alert("O's Won!");
-                $('.board_location').empty().append('<img src="../memory_match/images/victory.png" id = "victory">');
+                $('.board_location').empty().append('<img src="../C2.17_tictactoe/images/kyle-victory.gif" id = "victory">');
             }
         }
     };//end checkWin
