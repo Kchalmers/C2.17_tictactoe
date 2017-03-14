@@ -1,5 +1,6 @@
 var game;
 var CreateGame = function() {
+    this.canClick = true;
     this.playersArray = [];
     //in playsMadeArr 0 = not played space, 1 = X played and 2 = O played
     this.playsMadeArr = [];
@@ -8,7 +9,7 @@ var CreateGame = function() {
     this.winCondition = null;
     this.userWinCondition = function () {
         this.winCondition = $("input[name='match']:checked").val();
-    }
+    };
     this.getSize = function() {
         this.gameBoardSize = $("input[name='chosen']:checked").val();
     };
@@ -22,16 +23,19 @@ var CreateGame = function() {
         this.createCells();
         this.createPlaysMade();
         $(".ttt_cell").click(this.CellClicked.bind(this));
+        $(".start_game").on('click',$(".chosen").attr("disabled", true))
     };
     this.createBoard = function() {
         if(this.gameBoardSize === "three") {
             var board = $("<div>", {
                 class : "game_board_three"
             });
+            canClick = true;
         } else {
             board = $("<div>", {
                 class : "game_board_five"
             });
+            canClick = false;
         }
         $(".board_location").append(board);
     }; // end of createBoard
@@ -72,38 +76,38 @@ var CreateGame = function() {
             }
         }
     };
-    this.checkWin = function(row, col, symbolChecking) {
-        this.userWinCondition();
-        if (this.winCondition === "three") {
-            this.winCondition = 3;
-        } else {
-            this.winCondition = 5;
-        }
-        for (var i=-1; i <=1; i++) {
-            var counter = 0;
-            for (var j = -1; j <=1; j++){
-                if (this.playsMadeArr[row+i][col+j] === symbolChecking &&
-                    this.playsMadeArr[row+i][col+j] != undefined) {
-                    do {
-                        i+=i;
-                        j+=j;
-                        counter += 1;
-                    } while (this.playsMadeArr[row+1][col+j] === symbolChecking ||
-                    this.playsMadeArr[row+1][col+j] === undefined);
-                }
-                if (counter >= this.winCondition) {
-                    if (symbolChecking === 1) {
-                        alert("X's Won");
-                    } else
-                        alert("O's Won");
-                }
-            }
-        }
-
-    };//end checkWin
+    // this.checkWin = function(row, col, symbolChecking) {
+    //     this.userWinCondition();
+    //     if (this.winCondition === "three") {
+    //         this.winCondition = 3;
+    //     } else {
+    //         this.winCondition = 5;
+    //     }
+    //     for (var i=-1; i <=1; i++) {
+    //         var counter = 0;
+    //         for (var j = -1; j <=1; j++){
+    //             if (this.playsMadeArr[row+i][col+j] === symbolChecking &&
+    //                 this.playsMadeArr[row+i][col+j] != undefined) {
+    //                 do {
+    //                     i+=i;
+    //                     j+=j;
+    //                     counter += 1;
+    //                 } while (this.playsMadeArr[row+1][col+j] === symbolChecking ||
+    //                 this.playsMadeArr[row+1][col+j] === undefined);
+    //             }
+    //             if (counter >= this.winCondition) {
+    //                 if (symbolChecking === 1) {
+    //                     alert("X's Won");
+    //                 } else
+    //                     alert("O's Won");
+    //             }
+    //         }
+    //     }
+    //
+    // };//end checkWin
 
     this.CellClicked = function () {
-        this.checkWin();
+        // this.checkWin();
         this.switchPlayers();
 
     };
@@ -116,7 +120,7 @@ var CreateGame = function() {
         this.playerArray[0].current_player();
     };//end of createPlayers
     this.switchPlayers = function (player) {
-
+        var self = event.target;
         if(this.current_player == 'X')
         {
             this.playsMadeArr.push(1);
