@@ -11,13 +11,13 @@ var CreateGame = function() {
     // this.gameBoardSize = "five";
     this.addClickHandlers = function() {
         $(".start_game").click(this.beginGame.bind(this));
-        $(".ttt_cell").click(this.CellClicked.bind(this));
     };
     this.beginGame = function() {
         this.getSize();
         this.createBoard();
         this.createCells();
         this.createPlaysMade();
+        $(".ttt_cell").click(this.CellClicked.bind(this));
     };
     this.createBoard = function() {
         if(this.gameBoardSize === "three") {
@@ -69,7 +69,6 @@ var CreateGame = function() {
     };//end checkWin
 
     this.CellClicked = function () {
-        document.write('Hello World');
         this.checkWin();
         $(".ttt_cell").append('X');
         this.switchPlayers();
@@ -88,7 +87,6 @@ var CreateGame = function() {
         if(this.current_player == 'X')
         {
             this.current_player = 'O';
-            this.playsMadeArr.push();
         }else {
             this.current_player = 'X';
         }
