@@ -15,13 +15,13 @@ var CreateGame = function() {
     // this.gameBoardSize = "five";
     this.addClickHandlers = function() {
         $(".start_game").click(this.beginGame.bind(this));
-        // $(".ttt_cell").click(this.SOMEFUNCTION.bind(this));
     };
     this.beginGame = function() {
         this.getSize();
         this.createBoard();
         this.createCells();
         this.createPlaysMade();
+        $(".ttt_cell").click(this.CellClicked.bind(this));
     };
     this.createBoard = function() {
         if(this.gameBoardSize === "three") {
@@ -101,6 +101,13 @@ var CreateGame = function() {
         }
 
     };//end checkWin
+
+    this.CellClicked = function () {
+        this.checkWin();
+        this.switchPlayers();
+
+    };
+
     // Start of Create Players
     this.createPlayers = function () {
         var player1 = new player_template('X', $('.player1'));
@@ -109,29 +116,36 @@ var CreateGame = function() {
         this.playerArray[0].current_player();
     };//end of createPlayers
     this.switchPlayers = function (player) {
+
         if(this.current_player == 'X')
         {
+            this.playsMadeArr.push(1);
+            $(self).text("X");
             this.current_player = 'O';
         }else {
+            this.playsMadeArr.push(0);
+            $(self).text("O");
             this.current_player = 'X';
         }
     };//End of switchPlayers
 };//end of CreateGame
 
-var player_template = function (marker, player) {
-this.marker = marker;
-this.player = player;
-    var active_player = function () {
-        this.player.addClass('current_player')
-    };
-    var off_player = function () {
-        this.player.removeClass('current_player')
-    };
-
-};
+// var player_template = function (marker, player) {
+// this.marker = marker;
+// this.player = player;
+//     var active_player = function () {
+//         this.player.addClass('current_player')
+//     };
+//     var off_player = function () {
+//         this.player.removeClass('current_player')
+//     };
+//     var marker_getter = function () {
+//         return this.marker;
+//     }
+// };
 function initialize() {
     game.addClickHandlers();
-};
+}
 
 $(document).ready(function() {
     game = new CreateGame;
