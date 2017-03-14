@@ -1,16 +1,17 @@
 body {
-    background-color:black;
+    background-image: url("../C2.17_tictactoe/images/south-park-background.jpg");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
 }
 .whole_game{
     height: 98vh;
     width: 88vw;
-    border: 1px solid black;
     position: absolute;
     left: 6%;
 }
 h1 {
     color:white;
-    left: 48%;
+    left: 38%;
     font-size:7vh;
     font-family:"Courier New", Courier, monospace;
     position: absolute;
@@ -128,11 +129,10 @@ li{
 .board_location {
     height: 82%;
     width: 67%;
-    border: 1px solid black;
     position: absolute;
     left: 29%;
     top: 14%;
-    background-color: black;
+    text-align: center;
 }
 /*this is for 3match game*/
 .game_board_three{
