@@ -5,6 +5,10 @@ var CreateGame = function() {
     this.playsMadeArr = [];
     this.current_player = 'X';
     this.gameBoardSize = null;
+    this.winCondition = null;
+    this.userWinCondition = function () {
+        this.winCondition = $("input[name='match']:checked").val();
+    }
     this.getSize = function() {
         this.gameBoardSize = $("input[name='chosen']:checked").val();
     };
@@ -52,21 +56,6 @@ var CreateGame = function() {
                 }
             }
         }
-        // if (this.gameBoardSize === "three") {
-        //     size = 9;
-        // } else {
-        //     size = 25;
-        // }
-        // for (var i = 0; i < size; i++) {
-        //     var cell = $("<div>", {
-        //         class : "ttt_cell"
-        //     });
-        //     if (size === 9) {
-        //         $(".game_board_three").append(cell);
-        //     } else {
-        //         $(".game_board_five").append(cell);
-        //     }
-        // }
     };//end of createCells
     this.createPlaysMade = function() {
         var size;
@@ -83,7 +72,33 @@ var CreateGame = function() {
             }
         }
     };
-    this.checkWin = function() {
+    this.checkWin = function(row, col, symbolChecking) {
+        this.userWinCondition();
+        if (this.winCondition === "three") {
+            this.winCondition = 3;
+        } else {
+            this.winCondition = 5;
+        }
+        for (var i=-1; i <=1; i++) {
+            var counter = 0;
+            for (var j = -1; j <=1; j++){
+                if (this.playsMadeArr[row+i][col+j] === symbolChecking &&
+                    this.playsMadeArr[row+i][col+j] != undefined) {
+                    do {
+                        i+=i;
+                        j+=j;
+                        counter += 1;
+                    } while (this.playsMadeArr[row+1][col+j] === symbolChecking ||
+                    this.playsMadeArr[row+1][col+j] === undefined);
+                }
+                if (counter >= this.winCondition) {
+                    if (symbolChecking === 1) {
+                        alert("X's Won");
+                    } else
+                        alert("O's Won");
+                }
+            }
+        }
 
     };//end checkWin
 
@@ -94,16 +109,14 @@ var CreateGame = function() {
     };
 
     // Start of Create Players
-    //this.createPlayers = function () {
-       // var player1 = new player_template('X', $('.player1'));
-    //     var player2 = new player_template('O',$('.player2'));
-    //     this.playersArray.push(player1, player2);
-    //     this.playersArray[player1].active_player();
-    // };//end of createPlayers
+    this.createPlayers = function () {
+        var player1 = new player_template('X', $('.player1'));
+        var player2 = new player_template('O',$('.player2'));
+        this.playerArray.push(player1, player2);
+        this.playerArray[0].current_player();
+    };//end of createPlayers
+    this.switchPlayers = function (player) {
 
-    this.switchPlayers = function () {
-
-        var self = event.target;
         if(this.current_player == 'X')
         {
             this.playsMadeArr.push(1);
