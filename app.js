@@ -101,8 +101,12 @@ var CreateGame = function() {
                         colCount = 0;
                     }
                 }
-            }j
+            }
         }
+        //checks diagonal
+
+
+        //check win
         if(rowCount >= this.winCondition || colCount >= this.winCondition) {
             if (symbolChecking === 1) {
                 alert("X's Won!");
