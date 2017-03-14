@@ -1,7 +1,8 @@
 var game;
 var CreateGame = function() {
-    this.canClick = true;
-    this.playersArray = [];
+    var player1 = $('.player1');
+    var player2 = $('.player2');
+    player1.addClass('current_player');
     //in playsMadeArr 0 = not played space, 1 = X played and 2 = O played
     this.playsMadeArr = [];
     this.current_player = 'X';
@@ -103,50 +104,33 @@ var CreateGame = function() {
     //             }
     //         }
     //     }
-    //
-    // };//end checkWin
-
     this.CellClicked = function () {
-        // this.checkWin();
+        //this.checkWin();
+
         this.switchPlayers();
 
     };
-
-    // Start of Create Players
-    this.createPlayers = function () {
-        var player1 = new player_template('X', $('.player1'));
-        var player2 = new player_template('O',$('.player2'));
-        this.playerArray.push(player1, player2);
-        this.playerArray[0].current_player();
-    };//end of createPlayers
     this.switchPlayers = function (player) {
         var self = event.target;
+        var row = $(self).attr('row');
+        var col = $(self).attr('col');
+
         if(this.current_player == 'X')
         {
-            this.playsMadeArr.push(1);
+            this.playsMadeArr[row][col] = 1;
             $(self).text("X");
             this.current_player = 'O';
+            player2.addClass('current_player');
+            player1.removeClass('current_player');
         }else {
-            this.playsMadeArr.push(0);
+            this.playsMadeArr[row][col] = 2;
             $(self).text("O");
             this.current_player = 'X';
+            player1.addClass('current_player');
+            player2.removeClass('current_player');
         }
     };//End of switchPlayers
 };//end of CreateGame
-
-// var player_template = function (marker, player) {
-// this.marker = marker;
-// this.player = player;
-//     var active_player = function () {
-//         this.player.addClass('current_player')
-//     };
-//     var off_player = function () {
-//         this.player.removeClass('current_player')
-//     };
-//     var marker_getter = function () {
-//         return this.marker;
-//     }
-// };
 function initialize() {
     game.addClickHandlers();
 }
