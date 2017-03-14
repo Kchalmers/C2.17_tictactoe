@@ -84,7 +84,7 @@ li{
     background-color:green;
 }
 .nav_start-game {
-    height: 24%;
+    height: 12%;
     width: 100%;
     background-color: darkslategray;;
     border: 1px solid white;
@@ -98,7 +98,27 @@ li{
     width: 67%;
     position: absolute;
     background-color: red;
-    font-size: 4vh;
+    font-size: 2.5vh;
+    top: 29%;
+    left: 16%;
+    text-align: center;
+    cursor:pointer;
+}
+.nav_reset-game {
+    height: 12%;
+    width: 100%;
+    background-color: darkslategray;;
+    border: 1px solid white;
+    position: absolute;
+    top: 88%;
+    text-align: center;
+}
+.reset_game{
+    height: 48%;
+    width: 67%;
+    position: absolute;
+    background-color: red;
+    font-size: 2.5vh;
     top: 29%;
     left: 16%;
     text-align: center;

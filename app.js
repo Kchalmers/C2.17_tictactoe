@@ -23,7 +23,7 @@ var CreateGame = function() {
         this.createBoard();
         this.createCells();
         this.createPlaysMade();
-        $(".ttt_cell").click(this.CellClicked.bind(this));
+        $(".ttt_cell").click(this.switchPlayers.bind(this));
         $(".start_game").on('click',$(".chosen").attr("disabled", true));
         $(".reset_game").click(this.ResetGame.bind(this));
     };
@@ -151,11 +151,6 @@ var CreateGame = function() {
 
     };//end checkWin
 
-    this.CellClicked = function () {
-        // this.checkWin();
-        this.switchPlayers();
-
-    };
     this.switchPlayers = function (player) {
         var self = event.target;
         var row = $(self).attr('row');
