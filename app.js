@@ -1,6 +1,8 @@
 var game;
 var CreateGame = function() {
-    //this.playersArray = [];
+    var player1 = $('.player1');
+    var player2 = $('.player2');
+    player1.addClass('current_player');
     //in playsMadeArr 0 = not played space, 1 = X played and 2 = O played
     this.playsMadeArr = [];
     this.current_player = 'X';
@@ -8,7 +10,7 @@ var CreateGame = function() {
     this.winCondition = null;
     this.userWinCondition = function () {
         this.winCondition = $("input[name='match']:checked").val();
-    }
+    };
     this.getSize = function() {
         this.gameBoardSize = $("input[name='chosen']:checked").val();
     };
@@ -22,16 +24,19 @@ var CreateGame = function() {
         this.createCells();
         this.createPlaysMade();
         $(".ttt_cell").click(this.CellClicked.bind(this));
+        $(".start_game").on('click',$(".chosen").attr("disabled", true))
     };
     this.createBoard = function() {
         if(this.gameBoardSize === "three") {
             var board = $("<div>", {
                 class : "game_board_three"
             });
+            canClick = true;
         } else {
             board = $("<div>", {
                 class : "game_board_five"
             });
+            canClick = false;
         }
         $(".board_location").append(board);
     }; // end of createBoard
@@ -150,14 +155,6 @@ var CreateGame = function() {
         this.switchPlayers();
 
     };
-
-    // Start of Create Players
-    // this.createPlayers = function () {
-    //     var player1 = new player_template('X', $('.player1'));
-    //     var player2 = new player_template('O',$('.player2'));
-    //     this.playerArray.push(player1, player2);
-    //     this.playerArray[0].current_player();
-    // };//end of createPlayers
     this.switchPlayers = function (player) {
         var self = event.target;
         var row = $(self).attr('row');
@@ -168,28 +165,18 @@ var CreateGame = function() {
             $(self).text("X");
             this.checkWin(row, col, 1);
             this.current_player = 'O';
+            player2.addClass('current_player');
+            player1.removeClass('current_player');
         }else {
             this.playsMadeArr[row][col] = 2;
             $(self).text("O");
             this.checkWin(row, col, 2)
             this.current_player = 'X';
+            player1.addClass('current_player');
+            player2.removeClass('current_player');
         }
     };//End of switchPlayers
 };//end of CreateGame
-
-// var player_template = function (marker, player) {
-// this.marker = marker;
-// this.player = player;
-//     var active_player = function () {
-//         this.player.addClass('current_player')
-//     };
-//     var off_player = function () {
-//         this.player.removeClass('current_player')
-//     };
-//     var marker_getter = function () {
-//         return this.marker;
-//     }
-// };
 function initialize() {
     game.addClickHandlers();
 }
