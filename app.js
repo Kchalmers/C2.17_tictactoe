@@ -192,7 +192,7 @@ var CreateGame = function() {
         var row = $(self).attr('row');
         var col = $(self).attr('col');
         //prevents people from changing the symbols
-        if($(self).text() == '') {
+        if(!$(self).hasClass('occupied')) {
             //assigns a row and column, switches current player and places the symbol in cell
             if (this.current_player == 'X') {
                 this.playsMadeArr[row][col] = 1;
@@ -201,6 +201,7 @@ var CreateGame = function() {
                 this.current_player = 'O';
                 player2.addClass('current_player');
                 player1.removeClass('current_player');
+                $(self).addClass('occupied');
             } else {
                 this.playsMadeArr[row][col] = 2;
                 $(self).append(('<img src="../C2.17_tictactoe/images/KyleBroflovski.png" id = "symbol">'));
@@ -208,6 +209,7 @@ var CreateGame = function() {
                 this.current_player = 'X';
                 player1.addClass('current_player');
                 player2.removeClass('current_player');
+                $(self).addClass('occupied');
             }
         }
     };//End of switchPlayers
