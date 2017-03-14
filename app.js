@@ -89,44 +89,47 @@ var CreateGame = function() {
 
     this.CellClicked = function () {
         this.checkWin();
-        $(this).append("Blue");
         this.switchPlayers();
 
     };
 
     // Start of Create Players
-    this.createPlayers = function () {
-        var player1 = new player_template('X', $('.player1'));
-        var player2 = new player_template('O',$('.player2'));
-        this.playersArray.push(player1, player2);
-        this.playersArray[player1].active_player();
-    };//end of createPlayers
+    //this.createPlayers = function () {
+       // var player1 = new player_template('X', $('.player1'));
+    //     var player2 = new player_template('O',$('.player2'));
+    //     this.playersArray.push(player1, player2);
+    //     this.playersArray[player1].active_player();
+    // };//end of createPlayers
 
     this.switchPlayers = function () {
+
+        var self = event.target;
         if(this.current_player == 'X')
         {
             this.playsMadeArr.push(1);
+            $(self).text("X");
             this.current_player = 'O';
         }else {
             this.playsMadeArr.push(0);
+            $(self).text("O");
             this.current_player = 'X';
         }
     };//End of switchPlayers
 };//end of CreateGame
 
-var player_template = function (marker, player) {
-this.marker = marker;
-this.player = player;
-    var active_player = function () {
-        this.player.addClass('current_player')
-    };
-    var off_player = function () {
-        this.player.removeClass('current_player')
-    };
-    var marker_getter = function () {
-        return this.marker;
-    }
-};
+// var player_template = function (marker, player) {
+// this.marker = marker;
+// this.player = player;
+//     var active_player = function () {
+//         this.player.addClass('current_player')
+//     };
+//     var off_player = function () {
+//         this.player.removeClass('current_player')
+//     };
+//     var marker_getter = function () {
+//         return this.marker;
+//     }
+// };
 function initialize() {
     game.addClickHandlers();
 }
