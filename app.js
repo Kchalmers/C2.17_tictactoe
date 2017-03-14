@@ -120,11 +120,11 @@ var CreateGame = function() {
         if(this.current_player == 'X')
         {
             this.playsMadeArr.push(1);
-            $(self).text("X");
+            $(event.target).text("X");
             this.current_player = 'O';
         }else {
             this.playsMadeArr.push(0);
-            $(self).text("O");
+            $(event.target).text("O");
             this.current_player = 'X';
         }
     };//End of switchPlayers
