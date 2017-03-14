@@ -24,7 +24,8 @@ var CreateGame = function() {
         this.createCells();
         this.createPlaysMade();
         $(".ttt_cell").click(this.CellClicked.bind(this));
-        $(".start_game").on('click',$(".chosen").attr("disabled", true))
+        $(".start_game").on('click',$(".chosen").attr("disabled", true));
+        $(".reset_game").click(this.ResetGame.bind(this));
     };
     this.createBoard = function() {
         if(this.gameBoardSize === "three") {
@@ -130,6 +131,17 @@ var CreateGame = function() {
             player2.removeClass('current_player');
         }
     };//End of switchPlayers
+    
+    this.ResetGame = function () {
+        $(".chosen").prop("disabled", false);
+        player1.addClass('current_player');
+        player2.removeClass('current_player');
+        this.playsMadeArr = [];
+        this.current_player = 'X';
+        this.gameBoardSize = null;
+        $('.board_location').empty();
+    }
+    
 };//end of CreateGame
 function initialize() {
     game.addClickHandlers();
