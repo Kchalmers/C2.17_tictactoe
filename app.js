@@ -181,8 +181,10 @@ var CreateGame = function() {
         || countLeft >= this.winCondition || countRight >= this.winCondition) {
             if (symbolChecking === 1) {
                 alert("X's Won!");
+                $('.board_location').empty().append('<img src="../memory_match/images/victory.png" id = "victory">')
             } else {
-                alert("O's Won!")
+                alert("O's Won!");
+                $('.board_location').empty().append('<img src="../memory_match/images/victory.png" id = "victory">');
             }
         }
     };//end checkWin
