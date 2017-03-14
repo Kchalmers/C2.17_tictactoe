@@ -72,58 +72,61 @@ var CreateGame = function() {
             }
         }
     };
-    this.checkWin = function(row, col, symbolChecking) {
-        this.userWinCondition();
-        if (this.winCondition === "three") {
-            this.winCondition = 3;
-        } else {
-            this.winCondition = 5;
-        }
-        for (var i=-1; i <=1; i++) {
-            var counter = 0;
-            for (var j = -1; j <=1; j++){
-                if (this.playsMadeArr[row+i][col+j] === symbolChecking &&
-                    this.playsMadeArr[row+i][col+j] != undefined) {
-                    do {
-                        i+=i;
-                        j+=j;
-                        counter += 1;
-                    } while (this.playsMadeArr[row+1][col+j] === symbolChecking ||
-                    this.playsMadeArr[row+1][col+j] === undefined);
-                }
-                if (counter >= this.winCondition) {
-                    if (symbolChecking === 1) {
-                        alert("X's Won");
-                    } else
-                        alert("O's Won");
-                }
-            }
-        }
+    // this.checkWin = function(row, col, symbolChecking) {
+    //     this.userWinCondition();
+    //     if (this.winCondition === "three") {
+    //         this.winCondition = 3;
+    //     } else {
+    //         this.winCondition = 5;
+    //     }
+    //     for (var i=-1; i <=1; i++) {
+    //         var counter = 0;
+    //         for (var j = -1; j <=1; j++){
+    //             if (this.playsMadeArr[row+i][col+j] === symbolChecking &&
+    //                 this.playsMadeArr[row+i][col+j] != undefined) {
+    //                 do {
+    //                     i+=i;
+    //                     j+=j;
+    //                     counter += 1;
+    //                 } while (this.playsMadeArr[row+1][col+j] === symbolChecking ||
+    //                 this.playsMadeArr[row+1][col+j] === undefined);
+    //             }
+    //             if (counter >= this.winCondition) {
+    //                 if (symbolChecking === 1) {
+    //                     alert("X's Won");
+    //                 } else
+    //                     alert("O's Won");
+    //             }
+    //         }
+    //     }
 
-    };//end checkWin
+    //};//end checkWin
 
     this.CellClicked = function () {
-        this.checkWin();
+        //this.checkWin();
         this.switchPlayers();
 
     };
 
     // Start of Create Players
-    this.createPlayers = function () {
-        var player1 = new player_template('X', $('.player1'));
-        var player2 = new player_template('O',$('.player2'));
-        this.playerArray.push(player1, player2);
-        this.playerArray[0].current_player();
-    };//end of createPlayers
+    // this.createPlayers = function () {
+    //     var player1 = new player_template('X', $('.player1'));
+    //     var player2 = new player_template('O',$('.player2'));
+    //     this.playerArray.push(player1, player2);
+    //     this.playerArray[0].current_player();
+    // };//end of createPlayers
     this.switchPlayers = function (player) {
+        var self = event.target;
+        var row = $(self).attr('row');
+        var col = $(self).attr('col');
 
         if(this.current_player == 'X')
         {
-            this.playsMadeArr.push(self.attr());
+            this.playsMadeArr[row][col] = 1;
             $(self).text("X");
             this.current_player = 'O';
         }else {
-            this.playsMadeArr.push(0);
+            this.playsMadeArr[row][col] = 2;
             $(self).text("O");
             this.current_player = 'X';
         }
