@@ -1,6 +1,6 @@
 var game;
 var CreateGame = function() {
-    this.playersArray = [];
+    //this.playersArray = [];
     //in playsMadeArr 0 = not played space, 1 = X played and 2 = O played
     this.playsMadeArr = [];
     this.current_player = 'X';
@@ -106,7 +106,7 @@ var CreateGame = function() {
         var self = event.target;
         if(this.current_player == 'X')
         {
-            this.playsMadeArr.push(1);
+            this.playsMadeArr.push(self.attr());
             $(self).text("X");
             this.current_player = 'O';
         }else {
