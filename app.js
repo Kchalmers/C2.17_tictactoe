@@ -89,7 +89,7 @@ var CreateGame = function() {
 
     this.CellClicked = function () {
         this.checkWin();
-        $(".ttt_cell").append('X');
+        $(this).append("Blue");
         this.switchPlayers();
 
     };
@@ -99,14 +99,16 @@ var CreateGame = function() {
         var player1 = new player_template('X', $('.player1'));
         var player2 = new player_template('O',$('.player2'));
         this.playersArray.push(player1, player2);
-        this.playersArray['X'].current_player();
+        this.playersArray[player1].active_player();
     };//end of createPlayers
 
-    this.switchPlayers = function (player) {
+    this.switchPlayers = function () {
         if(this.current_player == 'X')
         {
+            this.playsMadeArr.push(1);
             this.current_player = 'O';
         }else {
+            this.playsMadeArr.push(0);
             this.current_player = 'X';
         }
     };//End of switchPlayers
@@ -127,7 +129,7 @@ this.player = player;
 };
 function initialize() {
     game.addClickHandlers();
-};
+}
 
 $(document).ready(function() {
     game = new CreateGame;
