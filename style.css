@@ -51,17 +51,22 @@ li{
 .player1 {
     height: 35%;
     width: 100%;
-    border-bottom: 1px solid black;
     position: absolute;
+    background-color:darkred;
 }
 .player2{
     height: 35%;
     width: 100%;
+    border-top: 1px solid black;
     border-bottom: 1px solid black;
     position: absolute;
     top: 35%;
+    background-color:darkred;
 }
 
+.current_player{
+    background-color:green;
+}
 .start_game{
     height: 12%;
     width: 50%;
