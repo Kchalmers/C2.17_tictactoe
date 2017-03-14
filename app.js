@@ -84,6 +84,12 @@ var CreateGame = function() {
         } else {
             this.winCondition = 5;
         }
+        var size = null;
+        if (this.gameBoardSize === "three") {
+            size = 3;
+        } else {
+            size = 5;
+        }
         //check row
         var rowCount = 0;
         for (var i = 0; i < this.playsMadeArr.length; i++) {
@@ -109,45 +115,66 @@ var CreateGame = function() {
             }
         }
         //checks diagonal
-
-
+        if (!(rowCount >= this.winCondition) || !(colCount >= this.winCondition)) {
+            var upLeft = [];
+            var upRight = [];
+            var downLeft = [];
+            var downRight = [];
+            var currentRow = parseInt(row);
+            var currentCol = parseInt(col);
+            for (var i = 0; i < size; i++) {
+                if (this.playsMadeArr.hasOwnProperty(currentRow - i)) {
+                    if (this.playsMadeArr.hasOwnProperty(currentCol - i)) {
+                        upLeft.push(this.playsMadeArr[currentRow - i][currentCol - i]);
+                    }
+                }
+                if (this.playsMadeArr.hasOwnProperty(currentRow - i)) {
+                    if (this.playsMadeArr.hasOwnProperty(currentCol + i)) {
+                        upRight.push(this.playsMadeArr[currentRow - i][currentCol + i]);
+                    }
+                }
+                if (this.playsMadeArr.hasOwnProperty(currentRow + i)) {
+                    if (this.playsMadeArr.hasOwnProperty(currentCol - i)) {
+                        downLeft.push(this.playsMadeArr[currentRow + i][currentCol - i]);
+                    }
+                }
+                if (this.playsMadeArr.hasOwnProperty(currentRow + i)) {
+                    if (this.playsMadeArr.hasOwnProperty(currentCol + i)) {
+                        downRight.push(this.playsMadeArr[currentRow + i][currentCol + i]);
+                    }
+                }
+            }
+            downRight.shift();
+            var leftDiagonalComplete = upLeft.reverse().concat(downRight);
+            upRight.shift();
+            var rightDiagonalComplete = downLeft.reverse().concat(upRight);
+            var countLeft = 0;
+            for (var j = 0; j<leftDiagonalComplete.length; j++) {
+                if (leftDiagonalComplete[j] === symbolChecking) {
+                    countLeft += 1;
+                } else if (countLeft < this.winCondition) {
+                    countLeft = 0;
+                }
+            } if (countLeft < this.winCondition) {
+                var countRight = 0;
+                for (var k = 0; k < rightDiagonalComplete.length; k++) {
+                    if (rightDiagonalComplete[k] === symbolChecking) {
+                        countRight += 1;
+                    } else if (countRight < this.winCondition) {
+                        countRight = 0;
+                    }
+                }
+            }
+        }
         //check win
-        if(rowCount >= this.winCondition || colCount >= this.winCondition) {
+        if(rowCount >= this.winCondition || colCount >= this.winCondition
+        || countLeft >= this.winCondition || countRight >= this.winCondition) {
             if (symbolChecking === 1) {
                 alert("X's Won!");
             } else {
                 alert("O's Won!")
             }
         }
-
-
-
-        // for (var i=-1; i <=1; i++) {
-        //     var counter = 0;
-        //     for (var j = -1; j <=1; j++){
-        //         if (this.playsMadeArr.hasOwnProperty(parseInt(row)+i)) {
-        //             if (this.playsMadeArr.hasOwnProperty(parseInt(col)+j)) {
-        //                 if (this.playsMadeArr[parseInt(row) + i][parseInt(col) + j] === symbolChecking) {
-        //                     do {
-        //                         i += i;
-        //                         j += j;
-        //                         counter += 1;
-        //                     } while (this.playsMadeArr[parseInt(row) + 1][parseInt(col) + j] === symbolChecking);
-        //                     // || this.playsMadeArr[row + 1][col + j] === undefined);
-        //                 }
-        //             }
-        //         }
-        //     }
-        //     if (counter >= this.winCondition) {
-        //         if (symbolChecking === 1) {
-        //             alert("X's Won");
-        //             break;
-        //         } else
-        //             alert("O's Won");
-        //         break;
-        //     }
-        // }
-
     };//end checkWin
 
     this.CellClicked = function () {
