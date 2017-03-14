@@ -34,20 +34,39 @@ var CreateGame = function() {
     this.createCells = function() {
         var size = null;
         if (this.gameBoardSize === "three") {
-            size = 9;
+            size = 3;
         } else {
-            size = 25;
+            size = 5;
         }
         for (var i = 0; i < size; i++) {
-            var cell = $("<div>", {
-                class : "ttt_cell"
-            });
-            if (size === 9) {
-                $(".game_board_three").append(cell);
-            } else {
-                $(".game_board_five").append(cell);
+            for (var j = 0; j< size; j++) {
+                var cell = $("<div>", {
+                    class: "ttt_cell",
+                    "row": i,
+                    "col": j
+                });
+                if (size === 3) {
+                    $(".game_board_three").append(cell);
+                } else {
+                    $(".game_board_five").append(cell);
+                }
             }
         }
+        // if (this.gameBoardSize === "three") {
+        //     size = 9;
+        // } else {
+        //     size = 25;
+        // }
+        // for (var i = 0; i < size; i++) {
+        //     var cell = $("<div>", {
+        //         class : "ttt_cell"
+        //     });
+        //     if (size === 9) {
+        //         $(".game_board_three").append(cell);
+        //     } else {
+        //         $(".game_board_five").append(cell);
+        //     }
+        // }
     };//end of createCells
     this.createPlaysMade = function() {
         var size;
