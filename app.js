@@ -8,17 +8,19 @@ var CreateGame = function() {
     this.current_player = 'X';
     this.gameBoardSize = null;
     this.winCondition = null;
+    //the following two functions are meant to allow control of when the variables will actually be set
     this.userWinCondition = function () {
         this.winCondition = $("input[name='match']:checked").val();
     };
     this.getSize = function() {
         this.gameBoardSize = $("input[name='chosen']:checked").val();
     };
-    // this.gameBoardSize = "five";
     this.addClickHandlers = function() {
         $(".start_game").click(this.beginGame.bind(this));
         $(".reset_game").click(this.ResetGame.bind(this));
     };
+    //sets up game by calling the functions in correct order as well as making the newly created
+    //cells clickable. It also disables the start game button and makes the reset game button available.
     this.beginGame = function() {
         this.getSize();
         this.createBoard();
@@ -27,6 +29,7 @@ var CreateGame = function() {
         $(".ttt_cell").click(this.switchPlayers.bind(this));
         $(".start_game").on('click',$("input").attr("disabled", true));
     };
+    //creates board based on size of game chosen
     this.createBoard = function() {
         if(this.gameBoardSize === "three") {
             var board = $("<div>", {
@@ -39,6 +42,7 @@ var CreateGame = function() {
         }
         $(".board_location").append(board);
     }; // end of createBoard
+    //creates the individual cells for the board and appends them on
     this.createCells = function() {
         var size = null;
         if (this.gameBoardSize === "three") {
@@ -61,6 +65,7 @@ var CreateGame = function() {
             }
         }
     };//end of createCells
+    //creates the array of arrays that will hold the representation of the board filling it all with 0's
     this.createPlaysMade = function() {
         var size;
         if (this.gameBoardSize === "three") {
@@ -76,6 +81,8 @@ var CreateGame = function() {
             }
         }
     };
+    //this checks if the game has been one by checking rows, then columns and finally diagnols in order if
+    //game hasn't already been won.
     this.checkWin = function(row, col, symbolChecking) {
         this.userWinCondition();
         if (this.winCondition === "three") {
@@ -144,6 +151,9 @@ var CreateGame = function() {
                     }
                 }
             }
+            //because the four arrays all hold the value of the clicked cell, it is necessary
+            //to remove one of those so that the final array will not hold two copies of the
+            //same space.
             downRight.shift();
             var leftDiagonalComplete = upLeft.reverse().concat(downRight);
             upRight.shift();
@@ -176,7 +186,7 @@ var CreateGame = function() {
             }
         }
     };//end checkWin
-
+    //
     this.switchPlayers = function () {
         var self = event.target; // sets the variable self to the cell clicked
         var row = $(self).attr('row');
