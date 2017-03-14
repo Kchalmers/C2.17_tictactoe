@@ -24,16 +24,19 @@ var CreateGame = function() {
         this.createCells();
         this.createPlaysMade();
         $(".ttt_cell").click(this.CellClicked.bind(this));
+        $(".start_game").on('click',$(".chosen").attr("disabled", true))
     };
     this.createBoard = function() {
         if(this.gameBoardSize === "three") {
             var board = $("<div>", {
                 class : "game_board_three"
             });
+            canClick = true;
         } else {
             board = $("<div>", {
                 class : "game_board_five"
             });
+            canClick = false;
         }
         $(".board_location").append(board);
     }; // end of createBoard
@@ -101,11 +104,9 @@ var CreateGame = function() {
     //             }
     //         }
     //     }
-
-    //};//end checkWin
-
     this.CellClicked = function () {
         //this.checkWin();
+
         this.switchPlayers();
 
     };
@@ -113,6 +114,7 @@ var CreateGame = function() {
         var self = event.target;
         var row = $(self).attr('row');
         var col = $(self).attr('col');
+
         if(this.current_player == 'X')
         {
             this.playsMadeArr[row][col] = 1;
