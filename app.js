@@ -77,36 +77,81 @@ var CreateGame = function() {
             }
         }
     };
-    // this.checkWin = function(row, col, symbolChecking) {
-    //     this.userWinCondition();
-    //     if (this.winCondition === "three") {
-    //         this.winCondition = 3;
-    //     } else {
-    //         this.winCondition = 5;
-    //     }
-    //     for (var i=-1; i <=1; i++) {
-    //         var counter = 0;
-    //         for (var j = -1; j <=1; j++){
-    //             if (this.playsMadeArr[row+i][col+j] === symbolChecking &&
-    //                 this.playsMadeArr[row+i][col+j] != undefined) {
-    //                 do {
-    //                     i+=i;
-    //                     j+=j;
-    //                     counter += 1;
-    //                 } while (this.playsMadeArr[row+1][col+j] === symbolChecking ||
-    //                 this.playsMadeArr[row+1][col+j] === undefined);
-    //             }
-    //             if (counter >= this.winCondition) {
-    //                 if (symbolChecking === 1) {
-    //                     alert("X's Won");
-    //                 } else
-    //                     alert("O's Won");
-    //             }
-    //         }
-    //     }
-    this.CellClicked = function () {
-        //this.checkWin();
+    this.checkWin = function(row, col, symbolChecking) {
+        this.userWinCondition();
+        if (this.winCondition === "three") {
+            this.winCondition = 3;
+        } else {
+            this.winCondition = 5;
+        }
+        //check row
+        var rowCount = 0;
+        for (var i = 0; i < this.playsMadeArr.length; i++) {
+            if(this.playsMadeArr[row][i]===symbolChecking) {
+                rowCount += 1;
+            } else {
+                if (rowCount < this.winCondition) {
+                    rowCount = 0;
+                }
+            }
+        }
+        //check columns
+        if (!(rowCount >= this.winCondition)) {
+            var colCount = 0;
+            for (var j = 0; j < this.playsMadeArr.length; j++) {
+                if(this.playsMadeArr[j][col]===symbolChecking) {
+                    colCount += 1;
+                } else {
+                    if(colCount < this.winCondition) {
+                        colCount = 0;
+                    }
+                }
+            }
+        }
+        //checks diagonal
 
+
+        //check win
+        if(rowCount >= this.winCondition || colCount >= this.winCondition) {
+            if (symbolChecking === 1) {
+                alert("X's Won!");
+            } else {
+                alert("O's Won!")
+            }
+        }
+
+
+
+        // for (var i=-1; i <=1; i++) {
+        //     var counter = 0;
+        //     for (var j = -1; j <=1; j++){
+        //         if (this.playsMadeArr.hasOwnProperty(parseInt(row)+i)) {
+        //             if (this.playsMadeArr.hasOwnProperty(parseInt(col)+j)) {
+        //                 if (this.playsMadeArr[parseInt(row) + i][parseInt(col) + j] === symbolChecking) {
+        //                     do {
+        //                         i += i;
+        //                         j += j;
+        //                         counter += 1;
+        //                     } while (this.playsMadeArr[parseInt(row) + 1][parseInt(col) + j] === symbolChecking);
+        //                     // || this.playsMadeArr[row + 1][col + j] === undefined);
+        //                 }
+        //             }
+        //         }
+        //     }
+        //     if (counter >= this.winCondition) {
+        //         if (symbolChecking === 1) {
+        //             alert("X's Won");
+        //             break;
+        //         } else
+        //             alert("O's Won");
+        //         break;
+        //     }
+        // }
+
+    };//end checkWin
+
+    this.CellClicked = function () {
+        // this.checkWin();
         this.switchPlayers();
 
     };
@@ -114,17 +159,18 @@ var CreateGame = function() {
         var self = event.target;
         var row = $(self).attr('row');
         var col = $(self).attr('col');
-
         if(this.current_player == 'X')
         {
             this.playsMadeArr[row][col] = 1;
             $(self).text("X");
+            this.checkWin(row, col, 1);
             this.current_player = 'O';
             player2.addClass('current_player');
             player1.removeClass('current_player');
         }else {
             this.playsMadeArr[row][col] = 2;
             $(self).text("O");
+            this.checkWin(row, col, 2)
             this.current_player = 'X';
             player1.addClass('current_player');
             player2.removeClass('current_player');
