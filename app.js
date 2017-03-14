@@ -32,12 +32,10 @@ var CreateGame = function() {
             var board = $("<div>", {
                 class : "game_board_three"
             });
-            canClick = true;
         } else {
             board = $("<div>", {
                 class : "game_board_five"
             });
-            canClick = false;
         }
         $(".board_location").append(board);
     }; // end of createBoard
@@ -155,21 +153,22 @@ var CreateGame = function() {
         var self = event.target;
         var row = $(self).attr('row');
         var col = $(self).attr('col');
-        if(this.current_player == 'X')
-        {
-            this.playsMadeArr[row][col] = 1;
-            $(self).text("X");
-            this.checkWin(row, col, 1);
-            this.current_player = 'O';
-            player2.addClass('current_player');
-            player1.removeClass('current_player');
-        }else {
-            this.playsMadeArr[row][col] = 2;
-            $(self).text("O");
-            this.checkWin(row, col, 2)
-            this.current_player = 'X';
-            player1.addClass('current_player');
-            player2.removeClass('current_player');
+        if($(self).text() == '') {
+            if (this.current_player == 'X') {
+                this.playsMadeArr[row][col] = 1;
+                $(self).text("X");
+                this.checkWin(row, col, 1);
+                this.current_player = 'O';
+                player2.addClass('current_player');
+                player1.removeClass('current_player');
+            } else {
+                this.playsMadeArr[row][col] = 2;
+                $(self).text("O");
+                this.checkWin(row, col, 2);
+                this.current_player = 'X';
+                player1.addClass('current_player');
+                player2.removeClass('current_player');
+            }
         }
     };//End of switchPlayers
     
