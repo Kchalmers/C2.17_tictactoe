@@ -149,11 +149,13 @@ var CreateGame = function() {
 
     };//end checkWin
 
-    this.switchPlayers = function (player) {
-        var self = event.target;
+    this.switchPlayers = function () {
+        var self = event.target; // sets the variable self to the cell clicked
         var row = $(self).attr('row');
         var col = $(self).attr('col');
+        //prevents people from changing the symbols
         if($(self).text() == '') {
+            //assigns a row and column, switches current player and places the symbol in cell
             if (this.current_player == 'X') {
                 this.playsMadeArr[row][col] = 1;
                 $(self).text("X");
@@ -173,13 +175,13 @@ var CreateGame = function() {
     };//End of switchPlayers
     
     this.ResetGame = function () {
-        $("input").prop("disabled", false);
-        player1.addClass('current_player');
-        player2.removeClass('current_player');
-        this.playsMadeArr = [];
-        this.current_player = 'X';
-        this.gameBoardSize = null;
-        $('.board_location').empty();
+        $("input").prop("disabled", false); //enables the game settings to be changed
+        player1.addClass('current_player'); //returns player1 to starting player
+        player2.removeClass('current_player'); //makes player2 the second player
+        this.playsMadeArr = []; //resets the array
+        this.current_player = 'X'; //makes current player have the X symbol
+        this.gameBoardSize = null; //resets the game board size;
+        $('.board_location').empty(); //clears the body for the new game
     }
     
 };//end of CreateGame
