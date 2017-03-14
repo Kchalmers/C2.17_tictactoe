@@ -2,6 +2,8 @@ body {
     background-image: url("../C2.17_tictactoe/images/south-park-background.jpg");
     background-repeat: no-repeat;
     background-size: 100% 100%;
+    width: 100vw;
+    height: 100vh;
 }
 .whole_game{
     height: 98vh;
@@ -179,4 +181,8 @@ li{
     text-align: center;
     vertical-align: text-top;
     cursor:pointer;
+}
+#symbol{
+    height: 70%;
+    width: 70%;
 }

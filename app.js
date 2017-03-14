@@ -180,10 +180,8 @@ var CreateGame = function() {
         if(rowCount >= this.winCondition || colCount >= this.winCondition
         || countLeft >= this.winCondition || countRight >= this.winCondition) {
             if (symbolChecking === 1) {
-                alert("X's Won!");
                 $('.board_location').empty().append('<img src="../C2.17_tictactoe/images/cartman-victory.jpg" id = "victory">')
             } else {
-                alert("O's Won!");
                 $('.board_location').empty().append('<img src="../C2.17_tictactoe/images/kyle-victory.gif" id = "victory">');
             }
         }
@@ -198,14 +196,14 @@ var CreateGame = function() {
             //assigns a row and column, switches current player and places the symbol in cell
             if (this.current_player == 'X') {
                 this.playsMadeArr[row][col] = 1;
-                $(self).text("X");
+                $(self).append(('<img src="../C2.17_tictactoe/images/EricCartman.png" id = "symbol">'));
                 this.checkWin(row, col, 1);
                 this.current_player = 'O';
                 player2.addClass('current_player');
                 player1.removeClass('current_player');
             } else {
                 this.playsMadeArr[row][col] = 2;
-                $(self).text("O");
+                $(self).append(('<img src="../C2.17_tictactoe/images/KyleBroflovski.png" id = "symbol">'));
                 this.checkWin(row, col, 2);
                 this.current_player = 'X';
                 player1.addClass('current_player');
