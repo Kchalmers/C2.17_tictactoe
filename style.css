@@ -102,22 +102,22 @@ li{
     box-sizing: border-box;
 }
 /*this is for 5match game*/
-/*.game_board_five {*/
-    /*height: 80vh;*/
-    /*width: 80vh;*/
-    /*background-color: cadetblue;*/
-    /*margin: 0;*/
-    /*padding: 0;*/
-    /*position: absolute;*/
-    /*left: 17%;*/
-    /*top: 5%;*/
-    /*font-size: 0;*/
-/*}*/
-/*.game_board_five > .ttt_cell {*/
-    /*width: 20%;*/
-    /*height: 20%;*/
-    /*border: 1px solid black;*/
-    /*display: inline-block;*/
-    /*box-sizing: border-box;*/
-/*}*/
+.game_board_five {
+    height: 80vh;
+    width: 80vh;
+    background-color: cadetblue;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    left: 17%;
+    top: 5%;
+    font-size: 0;
+}
+.game_board_five > .ttt_cell {
+    width: 20%;
+    height: 20%;
+    border: 1px solid black;
+    display: inline-block;
+    box-sizing: border-box;
+}
 

@@ -11,7 +11,7 @@ var CreateGame = function() {
     // this.gameBoardSize = "five";
     this.addClickHandlers = function() {
         $(".start_game").click(this.beginGame.bind(this));
-        // $(".ttt_cell").click(this.SOMEFUNCTION.bind(this));
+        $(".ttt_cell").click(this.CellClicked.bind(this));
     };
     this.beginGame = function() {
         this.getSize();
@@ -67,18 +67,28 @@ var CreateGame = function() {
     this.checkWin = function() {
 
     };//end checkWin
+
+    this.CellClicked = function () {
+        document.write('Hello World');
+        this.checkWin();
+        $(".ttt_cell").append('X');
+        this.switchPlayers();
+
+    };
+
     // Start of Create Players
     this.createPlayers = function () {
         var player1 = new player_template('X', $('.player1'));
         var player2 = new player_template('O',$('.player2'));
-        this.playerArray.push(player1, player2);
-        this.playerArray[0].current_player();
+        this.playersArray.push(player1, player2);
+        this.playersArray['X'].current_player();
     };//end of createPlayers
 
     this.switchPlayers = function (player) {
         if(this.current_player == 'X')
         {
             this.current_player = 'O';
+            this.playsMadeArr.push();
         }else {
             this.current_player = 'X';
         }
@@ -94,7 +104,9 @@ this.player = player;
     var off_player = function () {
         this.player.removeClass('current_player')
     };
-
+    var marker_getter = function () {
+        return this.marker;
+    }
 };
 function initialize() {
     game.addClickHandlers();
