@@ -188,7 +188,7 @@ var CreateGame = function() {
             }
         }
         else if (tieCounter == 9 && size == 3 || tieCounter == 25 && size == 5 || tieCounter == 16 && size == 4){
-            $('.board_location').empty().append('<img src="../C2.17_tictactoe/images/kyle-victory.gif" id = "victory">');
+            $('.board_location').empty().append('<img src="../C2.17_tictactoe/images/Cartman_Kyle_Tie.jpg" id = "victory">');
         }
     };//end checkWin
     //
