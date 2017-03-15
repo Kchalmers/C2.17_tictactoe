@@ -11,18 +11,26 @@ var CreateGame = function() {
     //the following two functions are meant to allow control of when the variables will actually be set
     this.userWinCondition = function () {
         this.winCondition = $("input[name='match']:checked").val();
+        this.winCondition = parseInt(this.winCondition);
     };
     this.getSize = function() {
         this.gameBoardSize = $("input[name='chosen']:checked").val();
+        this.gameBoardSize = parseInt(this.gameBoardSize);
+        if (this.gameBoardSize === 3) {
+            $(".matchThree").prop('checked', true);
+            $(".matchFive").attr("disabled", true);
+        } else {
+            $(".matchFive").attr("disabled", false);
+        }
     };
     this.addClickHandlers = function() {
+        $("input[name='chosen']").click(this.getSize.bind(this));
         $(".start_game").click(this.beginGame.bind(this));
         $(".reset_game").click(this.ResetGame.bind(this));
     };
     //sets up game by calling the functions in correct order as well as making the newly created
     //cells clickable. It also disables the start game button and makes the reset game button available.
     this.beginGame = function() {
-        this.getSize();
         this.createBoard();
         this.createCells();
         this.createPlaysMade();
@@ -31,7 +39,7 @@ var CreateGame = function() {
     };
     //creates board based on size of game chosen
     this.createBoard = function() {
-        if(this.gameBoardSize === "three") {
+        if(this.gameBoardSize === 3) {
             var board = $("<div>", {
                 class : "game_board_three"
             });
@@ -44,12 +52,7 @@ var CreateGame = function() {
     }; // end of createBoard
     //creates the individual cells for the board and appends them on
     this.createCells = function() {
-        var size = null;
-        if (this.gameBoardSize === "three") {
-            size = 3;
-        } else {
-            size = 5;
-        }
+        var size = this.gameBoardSize;
         for (var i = 0; i < size; i++) {
             for (var j = 0; j< size; j++) {
                 var cell = $("<div>", {
@@ -67,12 +70,7 @@ var CreateGame = function() {
     };//end of createCells
     //creates the array of arrays that will hold the representation of the board filling it all with 0's
     this.createPlaysMade = function() {
-        var size;
-        if (this.gameBoardSize === "three") {
-            size = 3;
-        } else {
-            size = 5;
-        }
+        var size = this.gameBoardSize;
         for(var i=0; i < size; i++){
             var temp = [];
             this.playsMadeArr.push(temp);
@@ -85,17 +83,9 @@ var CreateGame = function() {
     //game hasn't already been won.
     this.checkWin = function(row, col, symbolChecking) {
         this.userWinCondition();
-        if (this.winCondition === "three") {
+        var size = this.gameBoardSize;
+        if (size === 3) {
             this.winCondition = 3;
-        } else if(this.winCondition === "five"){
-            this.winCondition = 5;
-        }
-        var size = null;
-        if (this.gameBoardSize === "three") {
-            size = 3;
-            this.winCondition = 3;
-        } else {
-            size = 5;
         }
         //check row
         var rowCount = 0;
@@ -227,6 +217,7 @@ var CreateGame = function() {
 };//end of CreateGame
 function initialize() {
     game.addClickHandlers();
+    $(".matchFive").attr("disabled", true);
 }
 
 $(document).ready(function() {
