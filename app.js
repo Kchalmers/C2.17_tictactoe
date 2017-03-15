@@ -13,17 +13,36 @@ var CreateGame = function() {
         this.winCondition = $("input[name='match']:checked").val();
         this.winCondition = parseInt(this.winCondition);
     };
+    //When the size of the board changes, the match size has to reflect any changes as
+    //well as take into account that you can't match more than the size of the board.
     this.getSize = function() {
         this.gameBoardSize = $("input[name='chosen']:checked").val();
         this.gameBoardSize = parseInt(this.gameBoardSize);
         if (this.gameBoardSize === 3) {
-            $(".matchThree").prop('checked', true);
+            $(".matchThree").prop('checked', true).attr('checked', true);
+            $(".matchFour").attr("disabled", true).removeAttr('checked');
+            $(".matchFive").attr("disabled", true).removeAttr('checked');
+        } else if (this.gameBoardSize === 4) {
+            $(".matchFour").attr("disabled", false);
             $(".matchFive").attr("disabled", true);
+            if ($('.matchFive').is(':checked')) {
+                $(".matchFive").prop("checked", false).removeAttr('checked');
+                $(".matchFour").prop("checked", true).attr('checked',true);
+            }
         } else {
+            $(".matchFour").attr("disabled", false);
             $(".matchFive").attr("disabled", false);
         }
+        this.userWinCondition();
+    };
+    //handles when the match buttons are changed.
+    this.changeChecked = function() {
+        $("input[name='match']").removeAttr('checked');
+        $(event.target).prop('checked', true).attr('checked', true);
+        this.userWinCondition();
     };
     this.addClickHandlers = function() {
+        $("input[name='match']").click(this.changeChecked.bind(this));
         $("input[name='chosen']").click(this.getSize.bind(this));
         $(".start_game").click(this.beginGame.bind(this));
         $(".reset_game").click(this.ResetGame.bind(this));
@@ -42,6 +61,10 @@ var CreateGame = function() {
         if(this.gameBoardSize === 3) {
             var board = $("<div>", {
                 class : "game_board_three"
+            });
+        } else if (this.gameBoardSize === 4) {
+            board = $("<div>", {
+                class : "game_board_four"
             });
         } else {
             board = $("<div>", {
@@ -62,7 +85,10 @@ var CreateGame = function() {
                 });
                 if (size === 3) {
                     $(".game_board_three").append(cell);
-                } else {
+                } else if (size === 4) {
+                    $(".game_board_four").append(cell);
+                }
+                else {
                     $(".game_board_five").append(cell);
                 }
             }
@@ -82,11 +108,7 @@ var CreateGame = function() {
     //this checks if the game has been one by checking rows, then columns and finally diagnols in order if
     //game hasn't already been won.
     this.checkWin = function(row, col, symbolChecking) {
-        this.userWinCondition();
         var size = this.gameBoardSize;
-        if (size === 3) {
-            this.winCondition = 3;
-        }
         //check row
         var rowCount = 0;
         for (var i = 0; i < this.playsMadeArr.length; i++) {
@@ -216,6 +238,7 @@ var CreateGame = function() {
 };//end of CreateGame
 function initialize() {
     game.addClickHandlers();
+    $(".matchFour").attr("disabled", true);
     $(".matchFive").attr("disabled", true);
 }
 
