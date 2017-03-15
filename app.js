@@ -6,6 +6,7 @@ var CreateGame = function() {
     player1.addClass('current_player');
     //in playsMadeArr 0 = not played space, 1 = X played and 2 = O played
     this.playsMadeArr = [];
+    this.gameStarted = false;
     this.current_player = 'X';
     this.gameBoardSize = null;
     this.winCondition = null;
@@ -51,11 +52,15 @@ var CreateGame = function() {
     //sets up game by calling the functions in correct order as well as making the newly created
     //cells clickable. It also disables the start game button and makes the reset game button available.
     this.beginGame = function() {
-        this.createBoard();
-        this.createCells();
-        this.createPlaysMade();
-        $(".ttt_cell").click(this.switchPlayers.bind(this));
-        $("input").attr("disabled", true);
+        if (!this.gameStarted) {
+            this.getSize();
+            this.createBoard();
+            this.createCells();
+            this.createPlaysMade();
+            $(".ttt_cell").click(this.switchPlayers.bind(this));
+            $("input").attr("disabled", true);
+            this.gameStarted = true;
+        }
     };
     //creates board based on size of game chosen
     this.createBoard = function() {
@@ -243,6 +248,7 @@ var CreateGame = function() {
         this.current_player = 'X';
         $('.board_location').empty();
         tieCounter = 0;
+        this.gameStarted = false;
     }
     
 };//end of CreateGame
