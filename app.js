@@ -2,6 +2,7 @@ var game;
 var CreateGame = function() {
     var player1 = $('.player1');
     var player2 = $('.player2');
+    var tieCounter = 0;
     player1.addClass('current_player');
     //in playsMadeArr 0 = not played space, 1 = X played and 2 = O played
     this.playsMadeArr = [];
@@ -11,18 +12,26 @@ var CreateGame = function() {
     //the following two functions are meant to allow control of when the variables will actually be set
     this.userWinCondition = function () {
         this.winCondition = $("input[name='match']:checked").val();
+        this.winCondition = parseInt(this.winCondition);
     };
     this.getSize = function() {
         this.gameBoardSize = $("input[name='chosen']:checked").val();
+        this.gameBoardSize = parseInt(this.gameBoardSize);
+        if (this.gameBoardSize === 3) {
+            $(".matchThree").prop('checked', true);
+            $(".matchFive").attr("disabled", true);
+        } else {
+            $(".matchFive").attr("disabled", false);
+        }
     };
     this.addClickHandlers = function() {
+        $("input[name='chosen']").click(this.getSize.bind(this));
         $(".start_game").click(this.beginGame.bind(this));
         $(".reset_game").click(this.ResetGame.bind(this));
     };
     //sets up game by calling the functions in correct order as well as making the newly created
     //cells clickable. It also disables the start game button and makes the reset game button available.
     this.beginGame = function() {
-        this.getSize();
         this.createBoard();
         this.createCells();
         this.createPlaysMade();
@@ -31,7 +40,7 @@ var CreateGame = function() {
     };
     //creates board based on size of game chosen
     this.createBoard = function() {
-        if(this.gameBoardSize === "three") {
+        if(this.gameBoardSize === 3) {
             var board = $("<div>", {
                 class : "game_board_three"
             });
@@ -44,12 +53,7 @@ var CreateGame = function() {
     }; // end of createBoard
     //creates the individual cells for the board and appends them on
     this.createCells = function() {
-        var size = null;
-        if (this.gameBoardSize === "three") {
-            size = 3;
-        } else {
-            size = 5;
-        }
+        var size = this.gameBoardSize;
         for (var i = 0; i < size; i++) {
             for (var j = 0; j< size; j++) {
                 var cell = $("<div>", {
@@ -67,12 +71,7 @@ var CreateGame = function() {
     };//end of createCells
     //creates the array of arrays that will hold the representation of the board filling it all with 0's
     this.createPlaysMade = function() {
-        var size;
-        if (this.gameBoardSize === "three") {
-            size = 3;
-        } else {
-            size = 5;
-        }
+        var size = this.gameBoardSize;
         for(var i=0; i < size; i++){
             var temp = [];
             this.playsMadeArr.push(temp);
@@ -85,17 +84,9 @@ var CreateGame = function() {
     //game hasn't already been won.
     this.checkWin = function(row, col, symbolChecking) {
         this.userWinCondition();
-        if (this.winCondition === "three") {
+        var size = this.gameBoardSize;
+        if (size === 3) {
             this.winCondition = 3;
-        } else if(this.winCondition === "five"){
-            this.winCondition = 5;
-        }
-        var size = null;
-        if (this.gameBoardSize === "three") {
-            size = 3;
-            this.winCondition = 3;
-        } else {
-            size = 5;
         }
         //check row
         var rowCount = 0;
@@ -177,6 +168,7 @@ var CreateGame = function() {
             }
         }
         //check win
+        tieCounter++;
         if(rowCount >= this.winCondition || colCount >= this.winCondition
         || countLeft >= this.winCondition || countRight >= this.winCondition) {
             if (symbolChecking === 1) {
@@ -184,6 +176,9 @@ var CreateGame = function() {
             } else {
                 $('.board_location').empty().append('<img src="../C2.17_tictactoe/images/kyle-victory.gif" id = "victory">');
             }
+        }
+        else if (tieCounter == 9 && size == 3 || tieCounter == 25 && size == 5 || tieCounter == 16 && size == 4){
+            $('.board_location').empty().append('<img src="../C2.17_tictactoe/images/Cartman_Kyle_Tie.jpg" id = "victory">');
         }
     };//end checkWin
     //
@@ -215,18 +210,19 @@ var CreateGame = function() {
     };//End of switchPlayers
     
     this.ResetGame = function () {
-        $("input").prop("disabled", false); //enables the game settings to be changed
-        player1.addClass('current_player'); //returns player1 to starting player
-        player2.removeClass('current_player'); //makes player2 the second player
-        this.playsMadeArr = []; //resets the array
-        this.current_player = 'X'; //makes current player have the X symbol
-        this.gameBoardSize = null; //resets the game board size;
-        $('.board_location').empty(); //clears the body for the new game
+        $("input").prop("disabled", false);
+        player1.addClass('current_player');
+        player2.removeClass('current_player');
+        this.playsMadeArr = [];
+        this.current_player = 'X';
+        $('.board_location').empty();
+        tieCounter = 0;
     }
     
 };//end of CreateGame
 function initialize() {
     game.addClickHandlers();
+    $(".matchFive").attr("disabled", true);
 }
 
 $(document).ready(function() {
