@@ -54,7 +54,7 @@ var CreateGame = function() {
         this.createCells();
         this.createPlaysMade();
         $(".ttt_cell").click(this.switchPlayers.bind(this));
-        $(".start_game").on('click',$("input").attr("disabled", true));
+        $("input").attr("disabled", true);
     };
     //creates board based on size of game chosen
     this.createBoard = function() {
@@ -228,6 +228,10 @@ var CreateGame = function() {
     
     this.ResetGame = function () {
         $("input").prop("disabled", false);
+        $(".matchThree").prop("checked", true).attr('checked', true);
+        $(".matchFour").prop("disabled", true).removeAttr('checked');
+        $(".matchFive").prop("disabled", true).removeAttr('checked');
+        $("#startPosition").prop("checked", true);
         player1.addClass('current_player');
         player2.removeClass('current_player');
         this.playsMadeArr = [];
