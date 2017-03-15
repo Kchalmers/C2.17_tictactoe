@@ -56,9 +56,6 @@ ul{
     padding:0;
     list-style-type: none;
 }
-li{
-    margin-top:10%;
-}
 .players {
     height: 80%;
     width: 100%;
@@ -147,13 +144,13 @@ li{
 }
 /*this is for 3match game*/
 .game_board_three{
-    height: 88%;
-    width: 67%;
+    height: 95%;
+    width: 75%;
     margin: 0;
     padding: 0;
     position: absolute;
-    left: 15%;
-    top: 8%;
+    left: 10%;
+    top: 4%;
     font-size: 0;
     background: rgba(135, 206, 235, 0.5);
 }
@@ -164,6 +161,26 @@ li{
     display: inline-block;
     box-sizing: border-box;
     padding-top:2vw;
+}
+/*this is for 4match game*/
+.game_board_four {
+    height: 95%;
+    width: 75%;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    left: 10%;
+    top: 4%;
+    font-size: 0;
+    background: rgba(135, 206, 235, 0.5);
+}
+.game_board_four > .ttt_cell{
+    width: 25%;
+    height: 25%;
+    border: 1px solid white;
+    display: inline-block;
+    box-sizing: border-box;
+    padding-top:0.5vw;
 }
 /*this is for 5match game*/
 .game_board_five {
