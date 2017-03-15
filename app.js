@@ -222,6 +222,7 @@ var CreateGame = function() {
 };//end of CreateGame
 function initialize() {
     game.addClickHandlers();
+    game.getSize();
     $(".matchFive").attr("disabled", true);
 }
 
