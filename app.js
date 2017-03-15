@@ -2,6 +2,7 @@ var game;
 var CreateGame = function() {
     var player1 = $('.player1');
     var player2 = $('.player2');
+    var tieCounter = 0;
     player1.addClass('current_player');
     //in playsMadeArr 0 = not played space, 1 = X played and 2 = O played
     this.playsMadeArr = [];
@@ -167,6 +168,7 @@ var CreateGame = function() {
             }
         }
         //check win
+        tieCounter++;
         if(rowCount >= this.winCondition || colCount >= this.winCondition
         || countLeft >= this.winCondition || countRight >= this.winCondition) {
             if (symbolChecking === 1) {
@@ -174,6 +176,9 @@ var CreateGame = function() {
             } else {
                 $('.board_location').empty().append('<img src="../C2.17_tictactoe/images/kyle-victory.gif" id = "victory">');
             }
+        }
+        else if (tieCounter == 9 && size == 3 || tieCounter == 25 && size == 5 || tieCounter == 16 && size == 4){
+            $('.board_location').empty().append('<img src="../C2.17_tictactoe/images/Cartman_Kyle_Tie.jpg" id = "victory">');
         }
     };//end checkWin
     //
@@ -211,6 +216,7 @@ var CreateGame = function() {
         this.playsMadeArr = [];
         this.current_player = 'X';
         $('.board_location').empty();
+        tieCounter = 0;
     }
     
 };//end of CreateGame
